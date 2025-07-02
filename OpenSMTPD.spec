@@ -14,7 +14,7 @@
 
 
 Name:           OpenSMTPD
-Version:        7.6.0p1
+Version:        7.7.0p0
 Release:        0
 Summary:        A free implementation of the server-side SMTP protocol
 License:        ISC and BSD-4-Clause and BSD-3-Clause and BSD-2-Clause
