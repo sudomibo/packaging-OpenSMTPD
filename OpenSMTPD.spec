@@ -113,6 +113,7 @@ make check
 %{_mandir}/man8/sendmail.8*
 %{_mandir}/man8/smtpctl.8*
 %{_mandir}/man8/smtpd.8*
+%license LICENSE
 
 %changelog
 
