@@ -20,6 +20,8 @@ Summary:        A free implementation of the server-side SMTP protocol
 License:        ISC and BSD-4-Clause and BSD-3-Clause and BSD-2-Clause
 URL:            https://www.opensmtpd.org/
 Source:         %{name}-%{version}b0.tar.gz
+Source1:        %{name}-user.conf
+BuildRequires:  sysuser-tools
 BuildRequires:  autoconf
 BuildRequires:  automake
 BuildRequires:  bison
@@ -28,17 +30,26 @@ BuildRequires:  libevent-devel
 BuildRequires:  libressl-devel
 BuildRequires:  zlib-devel
 PreReq:         permissions
+Provides:       user(_smtpd)
+Provides:       group(_smtpd)
+Provides:       user(_smtpq)
+Provides:       group(_smtpq)
 
 %description
 OpenSMTPD is a FREE implementation of the server-side SMTP protocol as defined by RFC 5321, with some additional standard extensions.
 
 It allows ordinary machines to exchange e-mails with other systems speaking the SMTP protocol.
 
+%sysusers_requires
+
+%pre -f %{name}.pre
+
 %prep
 %setup -q -n %{name}-%{version}b0
 ./bootstrap
 
 %build
+%sysusers_generate_pre %{SOURCE1} %{name} %{name}-user.conf
 %configure
 make
 strip -s mk/smtp/smtp
@@ -53,6 +64,7 @@ strip -s mk/smtpctl/smtpctl
 strip -s mk/smtpd/smtpd
 
 %install
+install -D -m 0644 %{SOURCE1} %{buildroot}%{_sysusersdir}/%{name}-user.conf
 make DESTDIR=%{buildroot} install
 
 %check
@@ -83,18 +95,19 @@ make check
 %verify_permissions -e %{_sbindir}/smtpd
 
 %files
-%verify(not mode) %attr(0755,root,bin) %{_bindir}/smtp
-%config %{_sysconfdir}/smtpd.conf
+%{_sysusersdir}/%{name}-user.conf
+%verify(not mode) %attr(0755,root,root) %{_bindir}/smtp
+%config(noreplace) %{_sysconfdir}/smtpd.conf
 %dir %{_libexecdir}/opensmtpd
-%verify(not mode) %attr(0755,root,bin) %{_libexecdir}/opensmtpd/encrypt
-%verify(not mode caps) %attr(4755,root,bin) %{_libexecdir}/opensmtpd/lockspool
-%verify(not mode) %attr(0755,root,wheel) %{_libexecdir}/opensmtpd/mail.lmtp
-%verify(not mode) %attr(0755,root,bin) %{_libexecdir}/opensmtpd/mail.local
-%verify(not mode) %attr(0755,root,wheel) %{_libexecdir}/opensmtpd/mail.maildir
-%verify(not mode) %attr(0755,root,wheel) %{_libexecdir}/opensmtpd/mail.mboxfile
-%verify(not mode) %attr(0755,root,wheel) %{_libexecdir}/opensmtpd/mail.mda
+%verify(not mode) %attr(0755,root,root) %{_libexecdir}/opensmtpd/encrypt
+%verify(not mode caps) %attr(4755,root,root) %{_libexecdir}/opensmtpd/lockspool
+%verify(not mode) %attr(0755,root,root) %{_libexecdir}/opensmtpd/mail.lmtp
+%verify(not mode) %attr(0755,root,root) %{_libexecdir}/opensmtpd/mail.local
+%verify(not mode) %attr(0755,root,root) %{_libexecdir}/opensmtpd/mail.maildir
+%verify(not mode) %attr(0755,root,root) %{_libexecdir}/opensmtpd/mail.mboxfile
+%verify(not mode) %attr(0755,root,root) %{_libexecdir}/opensmtpd/mail.mda
 %verify(not mode caps) %attr(4755,root, _smtpq) %{_sbindir}/smtpctl
-%verify(not mode) %attr(0755,root,bin) %{_sbindir}/smtpd
+%verify(not mode) %attr(0755,root,root) %{_sbindir}/smtpd
 %{_mandir}/man1/lockspool.1*
 %{_mandir}/man1/smtp.1*
 %{_mandir}/man5/aliases.5*
