@@ -25,3 +25,9 @@ osc buildlog openSUSE_Tumbleweed x86_64
 
 Above described steps assume you have installed the `osc`/OBS tooling similar to how it is described in https://github.com/sudomibo/timestamp. In case you need inspiration for `osc` configuration see https://github.com/sudomibo/dotfiles/blob/main/.config/osc/oscrc.
 
+## Useful Links
+* https://en.opensuse.org/openSUSE:Packaging_guidelines
+* https://en.opensuse.org/openSUSE:Specfile_guidelines
+* https://en.opensuse.org/openSUSE:Package_source_verification
+* https://en.opensuse.org/openSUSE:Packaging_Conventions_RPM_Macros
+
