@@ -4,7 +4,7 @@ This repository contains materials related to packaging OpenSMTPD for openSUSE. 
 
 ## First Steps
 
-To control which changes from the upstream end up built, the upstream repository was forked at https://github.com/sudomibo/OpenSMTPD/. In this case, it was forked from the official OpenSMTPD Portable repository at https://github.com/OpenSMTPD/OpenSMTPD. The commit at which we start packaging was tagged, e.g. with `git tag -a 7.6.0p1b0 -m "Build 0 for 7.6.0p1 (2024-10-20)"; git push origin 7.6.0p1b0`. Then, a home project (good for experimentation) was created on the openSUSE Build Service and an archive of the source downloaded with the following commands:
+To control which changes from the upstream end up built, the upstream repository was forked at https://github.com/sudomibo/OpenSMTPD/. In this case, it was forked from the official OpenSMTPD Portable repository at https://github.com/OpenSMTPD/OpenSMTPD. The commit at which we start packaging was tagged, e.g. with `git tag -a 7.6.0p1b0 -m "Build 0 for 7.6.0p1 (2024-10-20)"; git push origin 7.6.0p1b0`. Then, a [home project](https://build.opensuse.org/package/show/home:mbozicevic/OpenSMTPD) (good for experimentation) was created on the openSUSE Build Service and an archive of the source downloaded with the following commands:
 
 ```bash
 osc checkout home:mbozicevic
