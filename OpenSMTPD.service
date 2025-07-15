@@ -1,0 +1,15 @@
+[Unit]
+Description=Simple Mail Transfer Protocol daemon
+After=network-online.target
+ConditionFileIsExecutable=/usr/sbin/smtpd
+
+[Service]
+ExecStartPre=/usr/sbin/smtpd -n
+ExecStart=/usr/sbin/smtpd
+Type=forking
+PIDFile=/var/run/smtpd.pid
+Restart=on-abnormal
+
+[Install]
+WantedBy=multi-user.target
+

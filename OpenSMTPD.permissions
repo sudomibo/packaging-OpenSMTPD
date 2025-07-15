@@ -1,0 +1,11 @@
+/usr/bin/smtp	root:root	0755
+/usr/libexec/opensmtpd/encrypt	root:root	0755
+/usr/libexec/opensmtpd/lockspool	root:root	4755
+/usr/libexec/opensmtpd/mail.lmtp	root:root	0755
+/usr/libexec/opensmtpd/mail.local	root:root	0755
+/usr/libexec/opensmtpd/mail.maildir	root:root	0755
+/usr/libexec/opensmtpd/mail.mboxfile	root:root	0755
+/usr/libexec/opensmtpd/mail.mda	root:root	0755
+/usr/sbin/smtpctl	root:_smtpq	4755
+/usr/sbin/smtpd	root:root	0755
+

@@ -19,30 +19,35 @@ Release:        0
 Summary:        A free implementation of the server-side SMTP protocol
 License:        ISC and BSD-4-Clause and BSD-3-Clause and BSD-2-Clause
 URL:            https://www.opensmtpd.org/
+Group:          Productivity/Networking/Email/Servers
 Source:         %{name}-%{version}b0.tar.gz
 Source1:        %{name}-user.conf
+Source2:        %{name}.service
+Source3:        %{name}.permissions
+BuildRequires:  systemd-rpm-macros
 BuildRequires:  sysuser-tools
+%sysusers_requires
 BuildRequires:  autoconf
 BuildRequires:  automake
 BuildRequires:  bison
 BuildRequires:  libtool
 BuildRequires:  libevent-devel
+%if 0%{?suse_version} > 1600
+# openSUSE Tumbleweed
 BuildRequires:  libressl-devel
+%else
+BuildRequires:  libopenssl-devel
+%endif
 BuildRequires:  zlib-devel
 PreReq:         permissions
-Provides:       user(_smtpd)
-Provides:       group(_smtpd)
-Provides:       user(_smtpq)
-Provides:       group(_smtpq)
 
 %description
 OpenSMTPD is a FREE implementation of the server-side SMTP protocol as defined by RFC 5321, with some additional standard extensions.
 
 It allows ordinary machines to exchange e-mails with other systems speaking the SMTP protocol.
 
-%sysusers_requires
-
 %pre -f %{name}.pre
+%service_add_pre %{name}.service
 
 %prep
 %setup -q -n %{name}-%{version}b0
@@ -65,6 +70,15 @@ strip -s mk/smtpd/smtpd
 
 %install
 install -D -m 0644 %{SOURCE1} %{buildroot}%{_sysusersdir}/%{name}-user.conf
+install -D -m 0644 %{SOURCE2} %{buildroot}%{_unitdir}/%{name}.service
+mkdir -p %{buildroot}%{_sysconfdir}/permissions.d
+install -D -m 0644 %{SOURCE3} %{buildroot}%{_sysconfdir}/permissions.d/%{name}
+# <rpmlint fix for "suse-missing-rclink">
+mkdir -p %{buildroot}%{_sbindir}
+pushd %{buildroot}%{_sbindir}
+ln -s service rc%{name}
+popd
+# </rpmlint>
 make DESTDIR=%{buildroot} install
 
 %check
@@ -81,6 +95,13 @@ make check
 %set_permissions %{_libexecdir}/opensmtpd/mail.mda
 %set_permissions %{_sbindir}/smtpctl
 %set_permissions %{_sbindir}/smtpd
+%service_add_post %{name}.service
+
+%preun
+%service_del_preun %{name}.service
+
+%postun
+%service_del_postun %{name}.service
 
 %verifyscript
 %verify_permissions -e %{_bindir}/smtp
@@ -98,6 +119,9 @@ make check
 %{_sysusersdir}/%{name}-user.conf
 %verify(not mode) %attr(0755,root,root) %{_bindir}/smtp
 %config(noreplace) %{_sysconfdir}/smtpd.conf
+%config %{_sysconfdir}/permissions.d/%{name}
+%{_unitdir}/%{name}.service
+%{_sbindir}/rc%{name}
 %dir %{_libexecdir}/opensmtpd
 %verify(not mode) %attr(0755,root,root) %{_libexecdir}/opensmtpd/encrypt
 %verify(not mode caps) %attr(4755,root,root) %{_libexecdir}/opensmtpd/lockspool
