@@ -30,4 +30,8 @@ Above described steps assume you have installed the `osc`/OBS tooling similar to
 * https://en.opensuse.org/openSUSE:Specfile_guidelines
 * https://en.opensuse.org/openSUSE:Package_source_verification
 * https://en.opensuse.org/openSUSE:Packaging_Conventions_RPM_Macros
+* https://en.opensuse.org/openSUSE:Package_security_guidelines
+* https://en.opensuse.org/openSUSE:Security_Features
+* https://en.opensuse.org/openSUSE:Build_Service_cross_distribution_howto
+* https://en.opensuse.org/openSUSE:Packaging_checks
 
