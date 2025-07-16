@@ -34,4 +34,5 @@ Above described steps assume you have installed the `osc`/OBS tooling similar to
 * https://en.opensuse.org/openSUSE:Security_Features
 * https://en.opensuse.org/openSUSE:Build_Service_cross_distribution_howto
 * https://en.opensuse.org/openSUSE:Packaging_checks
+* https://news.opensuse.org/2020/11/23/news-in-opensuse-packaging/
 

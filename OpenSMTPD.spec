@@ -27,6 +27,7 @@ Source3:        %{name}.permissions
 BuildRequires:  systemd-rpm-macros
 BuildRequires:  sysuser-tools
 %sysusers_requires
+BuildRequires:  sed
 BuildRequires:  autoconf
 BuildRequires:  automake
 BuildRequires:  bison
@@ -39,7 +40,7 @@ BuildRequires:  libressl-devel
 BuildRequires:  libopenssl-devel
 %endif
 BuildRequires:  zlib-devel
-PreReq:         permissions
+Requires(pre):  permissions
 
 %description
 OpenSMTPD is a FREE implementation of the server-side SMTP protocol as defined by RFC 5321, with some additional standard extensions.
@@ -55,6 +56,8 @@ It allows ordinary machines to exchange e-mails with other systems speaking the 
 
 %build
 %sysusers_generate_pre %{SOURCE1} %{name} %{name}-user.conf
+sed -i "s:_libexecdir:%{_libexecdir}:g" %{SOURCE3}
+sed -i "s:_rundir:%{_rundir}:g" %{SOURCE2}
 %configure
 make
 strip -s mk/smtp/smtp

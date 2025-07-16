@@ -7,7 +7,7 @@ ConditionFileIsExecutable=/usr/sbin/smtpd
 ExecStartPre=/usr/sbin/smtpd -n
 ExecStart=/usr/sbin/smtpd
 Type=forking
-PIDFile=/var/run/smtpd.pid
+PIDFile=_rundir/smtpd.pid
 Restart=on-abnormal
 
 [Install]
