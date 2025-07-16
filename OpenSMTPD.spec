@@ -82,6 +82,8 @@ pushd %{buildroot}%{_sbindir}
 ln -s service rc%{name}
 popd
 # </rpmlint>
+mkdir -p %{buildroot}%{_sysconfdir}/mail
+install -D -m 0644 etc/aliases %{buildroot}%{_sysconfdir}/mail/aliases
 make DESTDIR=%{buildroot} install
 
 %check
@@ -122,6 +124,8 @@ make check
 %{_sysusersdir}/%{name}-user.conf
 %verify(not mode) %attr(0755,root,root) %{_bindir}/smtp
 %config(noreplace) %{_sysconfdir}/smtpd.conf
+%dir %{_sysconfdir}/mail
+%config(noreplace) %{_sysconfdir}/mail/aliases
 %config %{_sysconfdir}/permissions.d/%{name}
 %{_unitdir}/%{name}.service
 %{_sbindir}/rc%{name}
