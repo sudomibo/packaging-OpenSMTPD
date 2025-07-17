@@ -58,7 +58,7 @@ It allows ordinary machines to exchange e-mails with other systems speaking the 
 %sysusers_generate_pre %{SOURCE1} %{name} %{name}-user.conf
 sed -i "s:_libexecdir:%{_libexecdir}:g" %{SOURCE3}
 sed -i "s:_rundir:%{_rundir}:g" %{SOURCE2}
-%configure
+%configure --with-path-empty=%{_sharedstatedir}/empty
 make
 strip -s mk/smtp/smtp
 strip -s contrib/libexec/encrypt/encrypt
