@@ -122,7 +122,7 @@ make check
 
 %files
 %{_sysusersdir}/%{name}-user.conf
-%verify(not mode) %attr(0755,root,root) %{_bindir}/smtp
+%verify(not mode) %attr(0555,root,root) %{_bindir}/smtp
 %config(noreplace) %{_sysconfdir}/smtpd.conf
 %dir %{_sysconfdir}/mail
 %config(noreplace) %{_sysconfdir}/mail/aliases
@@ -130,15 +130,15 @@ make check
 %{_unitdir}/%{name}.service
 %{_sbindir}/rc%{name}
 %dir %{_libexecdir}/opensmtpd
-%verify(not mode) %attr(0755,root,root) %{_libexecdir}/opensmtpd/encrypt
-%verify(not mode caps) %attr(4755,root,root) %{_libexecdir}/opensmtpd/lockspool
-%verify(not mode) %attr(0755,root,root) %{_libexecdir}/opensmtpd/mail.lmtp
-%verify(not mode) %attr(0755,root,root) %{_libexecdir}/opensmtpd/mail.local
-%verify(not mode) %attr(0755,root,root) %{_libexecdir}/opensmtpd/mail.maildir
-%verify(not mode) %attr(0755,root,root) %{_libexecdir}/opensmtpd/mail.mboxfile
-%verify(not mode) %attr(0755,root,root) %{_libexecdir}/opensmtpd/mail.mda
-%verify(not mode caps) %attr(4755,root, _smtpq) %{_sbindir}/smtpctl
-%verify(not mode) %attr(0755,root,root) %{_sbindir}/smtpd
+%verify(not mode) %attr(0555,root,root) %{_libexecdir}/opensmtpd/encrypt
+%verify(not mode caps) %attr(4555,root,root) %{_libexecdir}/opensmtpd/lockspool
+%verify(not mode) %attr(0555,root,root) %{_libexecdir}/opensmtpd/mail.lmtp
+%verify(not mode) %attr(0555,root,root) %{_libexecdir}/opensmtpd/mail.local
+%verify(not mode) %attr(0555,root,root) %{_libexecdir}/opensmtpd/mail.maildir
+%verify(not mode) %attr(0555,root,root) %{_libexecdir}/opensmtpd/mail.mboxfile
+%verify(not mode) %attr(0555,root,root) %{_libexecdir}/opensmtpd/mail.mda
+%verify(not mode caps) %attr(2555,root, _smtpq) %{_sbindir}/smtpctl
+%verify(not mode) %attr(0555,root,root) %{_sbindir}/smtpd
 %{_mandir}/man1/lockspool.1*
 %{_mandir}/man1/smtp.1*
 %{_mandir}/man5/aliases.5*

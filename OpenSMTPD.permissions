@@ -1,11 +1,11 @@
-/usr/bin/smtp	root:root	0755
-_libexecdir/opensmtpd/encrypt	root:root	0755
-_libexecdir/opensmtpd/lockspool	root:root	4755
-_libexecdir/opensmtpd/mail.lmtp	root:root	0755
-_libexecdir/opensmtpd/mail.local	root:root	0755
-_libexecdir/opensmtpd/mail.maildir	root:root	0755
-_libexecdir/opensmtpd/mail.mboxfile	root:root	0755
-_libexecdir/opensmtpd/mail.mda	root:root	0755
-/usr/sbin/smtpctl	root:_smtpq	4755
-/usr/sbin/smtpd	root:root	0755
+/usr/bin/smtp	root:root	0555
+_libexecdir/opensmtpd/encrypt	root:root	0555
+_libexecdir/opensmtpd/lockspool	root:root	4555
+_libexecdir/opensmtpd/mail.lmtp	root:root	0555
+_libexecdir/opensmtpd/mail.local	root:root	0555
+_libexecdir/opensmtpd/mail.maildir	root:root	0555
+_libexecdir/opensmtpd/mail.mboxfile	root:root	0555
+_libexecdir/opensmtpd/mail.mda	root:root	0555
+/usr/sbin/smtpctl	root:_smtpq	2555
+/usr/sbin/smtpd	root:root	0555
 
