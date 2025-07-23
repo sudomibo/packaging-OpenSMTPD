@@ -1,0 +1,5 @@
+hrvoje@kako.blesav.net hrvoje
+josip@kako.blesav.net josip
+ekipa@kako.blesav.net hrvoje,josip
+# do not forget to run 'smtpctl update table aliases' etc.
+
