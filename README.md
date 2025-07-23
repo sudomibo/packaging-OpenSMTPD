@@ -25,6 +25,10 @@ osc buildlog openSUSE_Tumbleweed x86_64
 
 Above described steps assume you have installed the `osc`/OBS tooling similar to how it is described in https://github.com/sudomibo/timestamp. In case you need inspiration for `osc` configuration see https://github.com/sudomibo/dotfiles/blob/main/.config/osc/oscrc.
 
+## Example Configuration
+
+The directory [example](https://github.com/sudomibo/packaging-OpenSMTPD/tree/main/example) contains a simple mail server configuration and assumes that user accounts mentioned in the `users` file exist on the server. The configuration also assumes that the server has a valid IPv6 address and associated MX DNS record.
+
 ## Useful Links
 * https://en.opensuse.org/openSUSE:Packaging_guidelines
 * https://en.opensuse.org/openSUSE:Specfile_guidelines
