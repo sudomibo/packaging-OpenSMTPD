@@ -25,9 +25,20 @@ osc buildlog openSUSE_Tumbleweed x86_64
 
 Above described steps assume you have installed the `osc`/OBS tooling similar to how it is described in https://github.com/sudomibo/timestamp. In case you need inspiration for `osc` configuration see https://github.com/sudomibo/dotfiles/blob/main/.config/osc/oscrc.
 
+After the spec and related files are created, the home project is submited to the devel/feeder project to get included in openSUSE Factory by submitting the following request:
+```bash
+osc submitrequest -m "I would like to maintain OpenSMTPD in Factory and would like to use server:mail as the devel/feeder project." home:mbozicevic/OpenSMTPD server:mail
+```
+
 ## Example Configuration
 
 The directory [example](https://github.com/sudomibo/packaging-OpenSMTPD/tree/main/example) contains a simple mail server configuration and assumes that user accounts mentioned in the `users` file exist on the server. The configuration also assumes that the server has a valid IPv6 address and associated MX DNS record.
+
+## FAQ
+
+### How to add new users and groups?
+
+OpenSMTPD by default uses two unprivileged accounts to increase security. They are defined in [OpenSMTPD-user.conf](https://github.com/sudomibo/packaging-OpenSMTPD/blob/main/OpenSMTPD-user.conf). To avoid the `rpmlint` "non-standard-gid" warning when the package is built, the users and groups are added to `configs/openSUSE/users-groups.toml` file in the `opensuse` branch of https://github.com/rpm-software-management/rpmlint/.
 
 ## Useful Links
 * https://en.opensuse.org/openSUSE:Packaging_guidelines
@@ -39,4 +50,5 @@ The directory [example](https://github.com/sudomibo/packaging-OpenSMTPD/tree/mai
 * https://en.opensuse.org/openSUSE:Build_Service_cross_distribution_howto
 * https://en.opensuse.org/openSUSE:Packaging_checks
 * https://news.opensuse.org/2020/11/23/news-in-opensuse-packaging/
+* https://en.opensuse.org/openSUSE:How_to_contribute_to_Factory
 
