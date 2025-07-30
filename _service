@@ -1,0 +1,13 @@
+<services>
+ <service name="download_url">
+   <param name="protocol">https</param>
+   <param name="host">github.com</param>
+   <param name="path">OpenSMTPD/OpenSMTPD/releases/download/7.7.0p0/opensmtpd-7.7.0p0.tar.gz</param>
+   <param name="filename">OpenSMTPD-7.7.0p0.tar.gz</param>
+ </service>
+ <service name="verify_file">
+   <param name="file">_service:download_url:OpenSMTPD-7.7.0p0.tar.gz</param>
+   <param name="verifier">sha256</param>
+   <param name="checksum">b0953da1ce2cbfe4be139cdb19aa935fbfab42cf0a993d425b37a397dc483968</param>
+ </service>
+</services>

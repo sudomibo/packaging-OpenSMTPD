@@ -51,4 +51,6 @@ OpenSMTPD by default uses two unprivileged accounts to increase security. They a
 * https://en.opensuse.org/openSUSE:Packaging_checks
 * https://news.opensuse.org/2020/11/23/news-in-opensuse-packaging/
 * https://en.opensuse.org/openSUSE:How_to_contribute_to_Factory
+* https://en.opensuse.org/openSUSE:Build_Service_Concept_SourceService
+* https://rpm.org/docs/4.20.x/manual/macros
 
