@@ -23,7 +23,6 @@ Group:          Productivity/Networking/Email/Servers
 Source:         %{name}-%{version}b0.tar.gz
 Source1:        %{name}-user.conf
 Source2:        %{name}.service
-Source3:        %{name}.permissions
 BuildRequires:  systemd-rpm-macros
 BuildRequires:  sysuser-tools
 %sysusers_requires
@@ -40,7 +39,6 @@ BuildRequires:  libressl-devel
 BuildRequires:  libopenssl-devel
 %endif
 BuildRequires:  zlib-devel
-Requires(pre):  permissions
 
 %description
 OpenSMTPD is a FREE implementation of the server-side SMTP protocol as defined by RFC 5321, with some additional standard extensions.
@@ -56,7 +54,6 @@ It allows ordinary machines to exchange e-mails with other systems speaking the 
 
 %build
 %sysusers_generate_pre %{SOURCE1} %{name} %{name}-user.conf
-sed -i "s:_libexecdir:%{_libexecdir}:g" %{SOURCE3}
 sed -i "s:_rundir:%{_rundir}:g" %{SOURCE2}
 %configure --with-path-empty=%{_sharedstatedir}/empty --with-path-pidfile=%{_rundir}
 make
@@ -74,8 +71,6 @@ strip -s mk/smtpd/smtpd
 %install
 install -D -m 0644 %{SOURCE1} %{buildroot}%{_sysusersdir}/%{name}-user.conf
 install -D -m 0644 %{SOURCE2} %{buildroot}%{_unitdir}/%{name}.service
-mkdir -p %{buildroot}%{_sysconfdir}/permissions.d
-install -D -m 0644 %{SOURCE3} %{buildroot}%{_sysconfdir}/permissions.d/%{name}
 # <rpmlint fix for "suse-missing-rclink">
 mkdir -p %{buildroot}%{_sbindir}
 pushd %{buildroot}%{_sbindir}
@@ -90,16 +85,6 @@ make DESTDIR=%{buildroot} install
 make check
 
 %post
-%set_permissions %{_bindir}/smtp
-%set_permissions %{_libexecdir}/opensmtpd/encrypt
-%set_permissions %{_libexecdir}/opensmtpd/lockspool
-%set_permissions %{_libexecdir}/opensmtpd/mail.lmtp
-%set_permissions %{_libexecdir}/opensmtpd/mail.local
-%set_permissions %{_libexecdir}/opensmtpd/mail.maildir
-%set_permissions %{_libexecdir}/opensmtpd/mail.mboxfile
-%set_permissions %{_libexecdir}/opensmtpd/mail.mda
-%set_permissions %{_sbindir}/smtpctl
-%set_permissions %{_sbindir}/smtpd
 %service_add_post %{name}.service
 
 %preun
@@ -108,37 +93,24 @@ make check
 %postun
 %service_del_postun %{name}.service
 
-%verifyscript
-%verify_permissions -e %{_bindir}/smtp
-%verify_permissions -e %{_libexecdir}/opensmtpd/encrypt
-%verify_permissions -e %{_libexecdir}/opensmtpd/lockspool
-%verify_permissions -e %{_libexecdir}/opensmtpd/mail.lmtp
-%verify_permissions -e %{_libexecdir}/opensmtpd/mail.local
-%verify_permissions -e %{_libexecdir}/opensmtpd/mail.maildir
-%verify_permissions -e %{_libexecdir}/opensmtpd/mail.mboxfile
-%verify_permissions -e %{_libexecdir}/opensmtpd/mail.mda
-%verify_permissions -e %{_sbindir}/smtpctl
-%verify_permissions -e %{_sbindir}/smtpd
-
 %files
 %{_sysusersdir}/%{name}-user.conf
-%verify(not mode) %attr(0555,root,root) %{_bindir}/smtp
+%attr(0555,root,root) %{_bindir}/smtp
 %config(noreplace) %{_sysconfdir}/smtpd.conf
 %dir %{_sysconfdir}/mail
 %config(noreplace) %{_sysconfdir}/mail/aliases
-%config %{_sysconfdir}/permissions.d/%{name}
 %{_unitdir}/%{name}.service
 %{_sbindir}/rc%{name}
 %dir %{_libexecdir}/opensmtpd
-%verify(not mode) %attr(0555,root,root) %{_libexecdir}/opensmtpd/encrypt
-%verify(not mode caps) %attr(4555,root,root) %{_libexecdir}/opensmtpd/lockspool
-%verify(not mode) %attr(0555,root,root) %{_libexecdir}/opensmtpd/mail.lmtp
-%verify(not mode) %attr(0555,root,root) %{_libexecdir}/opensmtpd/mail.local
-%verify(not mode) %attr(0555,root,root) %{_libexecdir}/opensmtpd/mail.maildir
-%verify(not mode) %attr(0555,root,root) %{_libexecdir}/opensmtpd/mail.mboxfile
-%verify(not mode) %attr(0555,root,root) %{_libexecdir}/opensmtpd/mail.mda
-%verify(not mode caps) %attr(2555,root, _smtpq) %{_sbindir}/smtpctl
-%verify(not mode) %attr(0555,root,root) %{_sbindir}/smtpd
+%attr(0555,root,root) %{_libexecdir}/opensmtpd/encrypt
+%attr(4555,root,root) %{_libexecdir}/opensmtpd/lockspool
+%attr(0555,root,root) %{_libexecdir}/opensmtpd/mail.lmtp
+%attr(0555,root,root) %{_libexecdir}/opensmtpd/mail.local
+%attr(0555,root,root) %{_libexecdir}/opensmtpd/mail.maildir
+%attr(0555,root,root) %{_libexecdir}/opensmtpd/mail.mboxfile
+%attr(0555,root,root) %{_libexecdir}/opensmtpd/mail.mda
+%attr(2555,root, _smtpq) %{_sbindir}/smtpctl
+%attr(0555,root,root) %{_sbindir}/smtpd
 %{_mandir}/man1/lockspool.1*
 %{_mandir}/man1/smtp.1*
 %{_mandir}/man5/aliases.5*
