@@ -71,12 +71,6 @@ strip -s mk/smtpd/smtpd
 %install
 install -D -m 0644 %{SOURCE1} %{buildroot}%{_sysusersdir}/%{name}-user.conf
 install -D -m 0644 %{SOURCE2} %{buildroot}%{_unitdir}/%{name}.service
-# <rpmlint fix for "suse-missing-rclink">
-mkdir -p %{buildroot}%{_sbindir}
-pushd %{buildroot}%{_sbindir}
-ln -s service rc%{name}
-popd
-# </rpmlint>
 mkdir -p %{buildroot}%{_sysconfdir}/mail
 install -D -m 0644 etc/aliases %{buildroot}%{_sysconfdir}/mail/aliases
 make DESTDIR=%{buildroot} install
@@ -100,7 +94,6 @@ make check
 %dir %{_sysconfdir}/mail
 %config(noreplace) %{_sysconfdir}/mail/aliases
 %{_unitdir}/%{name}.service
-%{_sbindir}/rc%{name}
 %dir %{_libexecdir}/opensmtpd
 %attr(0555,root,root) %{_libexecdir}/opensmtpd/encrypt
 %attr(4555,root,root) %{_libexecdir}/opensmtpd/lockspool
