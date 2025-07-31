@@ -79,21 +79,21 @@ make check
 
 %files
 %{_sysusersdir}/%{name}-user.conf
-%attr(0555,root,root) %{_bindir}/smtp
 %config(noreplace) %{_sysconfdir}/smtpd.conf
 %dir %{_sysconfdir}/mail
 %config(noreplace) %{_sysconfdir}/mail/aliases
 %{_unitdir}/%{name}.service
+%{_bindir}/smtp
 %dir %{_libexecdir}/opensmtpd
-%attr(0555,root,root) %{_libexecdir}/opensmtpd/encrypt
-%attr(4555,root,root) %{_libexecdir}/opensmtpd/lockspool
-%attr(0555,root,root) %{_libexecdir}/opensmtpd/mail.lmtp
-%attr(0555,root,root) %{_libexecdir}/opensmtpd/mail.local
-%attr(0555,root,root) %{_libexecdir}/opensmtpd/mail.maildir
-%attr(0555,root,root) %{_libexecdir}/opensmtpd/mail.mboxfile
-%attr(0555,root,root) %{_libexecdir}/opensmtpd/mail.mda
-%attr(2555,root, _smtpq) %{_sbindir}/smtpctl
-%attr(0555,root,root) %{_sbindir}/smtpd
+%{_libexecdir}/opensmtpd/encrypt
+%{_libexecdir}/opensmtpd/lockspool
+%{_libexecdir}/opensmtpd/mail.lmtp
+%{_libexecdir}/opensmtpd/mail.local
+%{_libexecdir}/opensmtpd/mail.maildir
+%{_libexecdir}/opensmtpd/mail.mboxfile
+%{_libexecdir}/opensmtpd/mail.mda
+%attr(-,-,_smtpq) %{_sbindir}/smtpctl
+%{_sbindir}/smtpd
 %{_mandir}/man1/lockspool.1*
 %{_mandir}/man1/smtp.1*
 %{_mandir}/man5/aliases.5*
