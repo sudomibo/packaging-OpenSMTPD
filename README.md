@@ -29,10 +29,25 @@ After the spec and related files are created, the home project is submited to th
 ```bash
 osc submitrequest -m "I would like to maintain OpenSMTPD in Factory and would like to use server:mail as the devel/feeder project." home:mbozicevic/OpenSMTPD server:mail
 ```
+After the request is approved, check if the maintainer role is assigned by running:
+
+```bash
+osc meta pkg server:mail/OpenSMTPD
+```
+
+and if not, request it with:
+
+```bash
+osc reqms server:mail/OpenSMTPD
+```
 
 ## Example Configuration
 
 The directory [example](https://github.com/sudomibo/packaging-OpenSMTPD/tree/main/example) contains a simple mail server configuration and assumes that user accounts mentioned in the `users` file exist on the server. The configuration also assumes that the server has a valid IPv6 address and associated MX DNS record.
+
+## `_service` OBS File
+
+Instead of forking the upstream repository, tagging and downloading the tar.gz as described in the First Steps section, there is a cleaner way that reduces the risk of mishaps. OBS supports the `download_url` and `verify_file` services that do what you would expect from their name [example](https://github.com/sudomibo/packaging-OpenSMTPD/blob/main/_service).
 
 ## FAQ
 
