@@ -57,16 +57,6 @@ It allows ordinary machines to exchange e-mails with other systems speaking the 
 sed -i "s:_rundir:%{_rundir}:g" %{SOURCE2}
 %configure --with-path-empty=%{_sharedstatedir}/empty --with-path-pidfile=%{_rundir}
 make
-strip -s mk/smtp/smtp
-strip -s contrib/libexec/encrypt/encrypt
-strip -s contrib/libexec/lockspool/lockspool
-strip -s mk/mail/mail.lmtp/mail.lmtp
-strip -s contrib/libexec/mail.local/mail.local
-strip -s mk/mail/mail.maildir/mail.maildir
-strip -s mk/mail/mail.mboxfile/mail.mboxfile
-strip -s mk/mail/mail.mda/mail.mda
-strip -s mk/smtpctl/smtpctl
-strip -s mk/smtpd/smtpd
 
 %install
 install -D -m 0644 %{SOURCE1} %{buildroot}%{_sysusersdir}/%{name}-user.conf
