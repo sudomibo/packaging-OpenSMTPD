@@ -39,6 +39,8 @@ BuildRequires:  libressl-devel
 BuildRequires:  libopenssl-devel
 %endif
 BuildRequires:  zlib-devel
+BuildRequires:  netcfg
+Requires:       netcfg
 
 %description
 OpenSMTPD is a FREE implementation of the server-side SMTP protocol as defined by RFC 5321, with some additional standard extensions.
@@ -62,7 +64,7 @@ make
 install -D -m 0644 %{SOURCE1} %{buildroot}%{_sysusersdir}/%{name}-user.conf
 install -D -m 0644 %{SOURCE2} %{buildroot}%{_unitdir}/%{name}.service
 mkdir -p %{buildroot}%{_sysconfdir}/mail
-install -D -m 0644 etc/aliases %{buildroot}%{_sysconfdir}/mail/aliases
+ln -s %{_sysconfdir}/aliases %{buildroot}%{_sysconfdir}/mail/aliases
 make DESTDIR=%{buildroot} install
 
 %check
