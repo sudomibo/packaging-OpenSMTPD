@@ -58,14 +58,14 @@ It allows ordinary machines to exchange e-mails with other systems speaking the 
 %sysusers_generate_pre %{SOURCE1} %{name} %{name}-user.conf
 sed -i "s:_rundir:%{_rundir}:g" %{SOURCE2}
 %configure --with-path-empty=%{_sharedstatedir}/empty --with-path-pidfile=%{_rundir}
-make
+%make_build
 
 %install
 install -D -m 0644 %{SOURCE1} %{buildroot}%{_sysusersdir}/%{name}-user.conf
 install -D -m 0644 %{SOURCE2} %{buildroot}%{_unitdir}/%{name}.service
 mkdir -p %{buildroot}%{_sysconfdir}/mail
 ln -s %{_sysconfdir}/aliases %{buildroot}%{_sysconfdir}/mail/aliases
-make DESTDIR=%{buildroot} install
+%make_install
 
 %check
 make check
