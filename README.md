@@ -41,13 +41,15 @@ and if not, request it with:
 osc reqms server:mail/OpenSMTPD
 ```
 
+The devel project is accessible at https://build.opensuse.org/package/show/server:mail/OpenSMTPD.
+
 ## Example Configuration
 
 The directory [example](https://github.com/sudomibo/packaging-OpenSMTPD/tree/main/example) contains a simple mail server configuration and assumes that user accounts mentioned in the `users` file exist on the server. The configuration also assumes that the server has a valid IPv6 address and associated MX DNS record.
 
 ## `_service` OBS File
 
-Instead of forking the upstream repository, tagging and downloading the tar.gz as described in the First Steps section, there is a cleaner way that reduces the risk of mishaps. OBS supports the `download_url` and `verify_file` services that do what you would expect from their name [example](https://github.com/sudomibo/packaging-OpenSMTPD/blob/main/_service).
+Instead of forking the upstream repository, tagging and downloading the tar.gz as described in the First Steps section, there is a cleaner way that reduces the risk of mishaps. OBS supports the `download_url` and `verify_file` services that do what you would expect from their name ([example](https://github.com/sudomibo/packaging-OpenSMTPD/blob/main/_service)).
 
 ## FAQ
 
