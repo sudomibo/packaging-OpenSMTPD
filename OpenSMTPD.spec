@@ -32,12 +32,7 @@ BuildRequires:  automake
 BuildRequires:  bison
 BuildRequires:  libtool
 BuildRequires:  libevent-devel
-%if 0%{?suse_version} > 1600
-# openSUSE Tumbleweed
-BuildRequires:  libressl-devel
-%else
 BuildRequires:  libopenssl-devel
-%endif
 BuildRequires:  zlib-devel
 BuildRequires:  netcfg
 Requires:       netcfg
