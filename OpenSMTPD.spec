@@ -20,7 +20,7 @@ Summary:        A free implementation of the server-side SMTP protocol
 License:        ISC and BSD-4-Clause and BSD-3-Clause and BSD-2-Clause
 URL:            https://www.opensmtpd.org/
 Group:          Productivity/Networking/Email/Servers
-Source:         %{name}-%{version}.tar.gz
+Source:         https://github.com/OpenSMTPD/OpenSMTPD/releases/download/%{version}/opensmtpd-%{version}.tar.gz
 Source1:        %{name}-user.conf
 Source2:        %{name}.service
 BuildRequires:  systemd-rpm-macros
