@@ -1,6 +1,7 @@
 #
 # spec file for package OpenSMTPD
 #
+# Copyright (c) 2025 SUSE LLC and contributors
 # Copyright (c) 2025 SUSE Software Solutions
 #
 # All modifications and additions to the file contributed by third parties
@@ -12,41 +13,41 @@
 # license that conforms to the Open Source Definition (Version 1.9)
 # published by the Open Source Initiative.
 
+# Please submit bugfixes or comments via https://bugs.opensuse.org/
+#
+
 
 Name:           OpenSMTPD
+%global         name_lowercase %(echo -n "%{name}" | tr '[:upper:]' '[:lower:]')
 Version:        7.7.0p0
 Release:        0
 Summary:        A free implementation of the server-side SMTP protocol
-License:        ISC and BSD-4-Clause and BSD-3-Clause and BSD-2-Clause
+License:        BSD-2-Clause AND BSD-3-Clause AND BSD-4-Clause AND ISC
 URL:            https://www.opensmtpd.org/
 Group:          Productivity/Networking/Email/Servers
-Source:         https://github.com/OpenSMTPD/OpenSMTPD/releases/download/%{version}/opensmtpd-%{version}.tar.gz
+Source:         https://github.com/OpenSMTPD/OpenSMTPD/releases/download/%{version}/%{name_lowercase}-%{version}.tar.gz
 Source1:        %{name}-user.conf
 Source2:        %{name}.service
 BuildRequires:  systemd-rpm-macros
 BuildRequires:  sysuser-tools
 %sysusers_requires
-BuildRequires:  sed
 BuildRequires:  autoconf
 BuildRequires:  automake
 BuildRequires:  bison
 BuildRequires:  libtool
-BuildRequires:  libevent-devel
-BuildRequires:  libopenssl-devel
-BuildRequires:  zlib-devel
 BuildRequires:  netcfg
-Requires:       netcfg
+BuildRequires:  sed
+BuildRequires:  pkgconfig(libevent)
+BuildRequires:  pkgconfig(libopenssl)
+BuildRequires:  pkgconfig(zlib)
 
 %description
 OpenSMTPD is a FREE implementation of the server-side SMTP protocol as defined by RFC 5321, with some additional standard extensions.
 
 It allows ordinary machines to exchange e-mails with other systems speaking the SMTP protocol.
 
-%pre -f %{name}.pre
-%service_add_pre %{name}.service
-
 %prep
-%setup -q -n opensmtpd-%{version}
+%setup -q -n %{name_lowercase}-%{version}
 ./bootstrap
 
 %build
@@ -65,6 +66,9 @@ ln -s %{_sysconfdir}/aliases %{buildroot}%{_sysconfdir}/mail/aliases
 %check
 make check
 
+%pre -f %{name}.pre
+%service_add_pre %{name}.service
+
 %post
 %service_add_post %{name}.service
 
@@ -81,14 +85,14 @@ make check
 %config(noreplace) %{_sysconfdir}/mail/aliases
 %{_unitdir}/%{name}.service
 %{_bindir}/smtp
-%dir %{_libexecdir}/opensmtpd
-%{_libexecdir}/opensmtpd/encrypt
-%{_libexecdir}/opensmtpd/lockspool
-%{_libexecdir}/opensmtpd/mail.lmtp
-%{_libexecdir}/opensmtpd/mail.local
-%{_libexecdir}/opensmtpd/mail.maildir
-%{_libexecdir}/opensmtpd/mail.mboxfile
-%{_libexecdir}/opensmtpd/mail.mda
+%dir %{_libexecdir}/%{name_lowercase}
+%{_libexecdir}/%{name_lowercase}/encrypt
+%{_libexecdir}/%{name_lowercase}/lockspool
+%{_libexecdir}/%{name_lowercase}/mail.lmtp
+%{_libexecdir}/%{name_lowercase}/mail.local
+%{_libexecdir}/%{name_lowercase}/mail.maildir
+%{_libexecdir}/%{name_lowercase}/mail.mboxfile
+%{_libexecdir}/%{name_lowercase}/mail.mda
 %attr(-,-,_smtpq) %{_sbindir}/smtpctl
 %{_sbindir}/smtpd
 %{_mandir}/man1/lockspool.1*
@@ -112,4 +116,3 @@ make check
 %license LICENSE
 
 %changelog
-
