@@ -47,13 +47,13 @@ The devel project is accessible at https://build.opensuse.org/package/show/serve
 
 ## Example Configuration
 
-The directory [example](https://github.com/sudomibo/packaging-OpenSMTPD/tree/main/example) contains a simple mail server configuration and assumes that user accounts mentioned in the `users` file exist on the server. The configuration also assumes that the server has a valid IPv6 address and associated MX DNS record.
+The [example](https://github.com/sudomibo/packaging-OpenSMTPD/tree/main/example) directory contains a simple mail server configuration and assumes that user accounts mentioned in the `users` file exist on the server. The configuration also assumes that the server has a valid IPv6 address and associated MX DNS record.
 
 ## `_service` OBS File
 
 Instead of forking the upstream repository, tagging and downloading the tar.gz as described in the First Steps section, there is a cleaner way that reduces the risk of mishaps. OBS supports the `download_url` and `verify_file` services that do what you would expect from their name ([example](https://github.com/sudomibo/packaging-OpenSMTPD/blob/7b4b70185c0988c008a1a434ba5f158039d774ca/_service)).
 
-The preferred alternative seems to be to have the `download_files` service in manual mode (activating it locally with `osc service mr download_files`), and commit the upstream source tarball to OBS. That way source remains available even if upstream site is not available.
+Regardless, the preferred alternative seems to be to have the `download_files` service in manual mode (activating it locally with `osc service mr download_files`), and commit the upstream source tarball to OBS. That way source remains available even if upstream site is not available.
 
 ## Post-release Checklist
 
