@@ -25,7 +25,7 @@ Summary:        A free implementation of the server-side SMTP protocol
 License:        BSD-2-Clause AND BSD-3-Clause AND BSD-4-Clause AND ISC
 URL:            https://www.opensmtpd.org/
 Group:          Productivity/Networking/Email/Servers
-Source:         https://github.com/OpenSMTPD/OpenSMTPD/releases/download/%{version}/%{name_lowercase}-%{version}.tar.gz
+Source:         https://github.com/OpenSMTPD/OpenSMTPD/releases/download/%{version}/opensmtpd-%{version}.tar.gz
 Source1:        %{name}-user.conf
 Source2:        %{name}.service
 BuildRequires:  systemd-rpm-macros
@@ -40,6 +40,13 @@ BuildRequires:  sed
 BuildRequires:  pkgconfig(libevent)
 BuildRequires:  pkgconfig(libopenssl)
 BuildRequires:  pkgconfig(zlib)
+Provides:       smtp_daemon
+Conflicts:      busybox-sendmail
+Conflicts:      exim
+Conflicts:      msmtp-mta
+Conflicts:      postfix
+Conflicts:      postfix-bdb
+Conflicts:      sendmail
 
 %description
 OpenSMTPD is a FREE implementation of the server-side SMTP protocol as defined by RFC 5321, with some additional standard extensions.
@@ -52,7 +59,7 @@ It allows ordinary machines to exchange e-mails with other systems speaking the 
 
 %build
 %sysusers_generate_pre %{SOURCE1} %{name} %{name}-user.conf
-sed -i "s:_rundir:%{_rundir}:g" %{SOURCE2}
+sed -i "s;@rundir@;%{_rundir};g" %{SOURCE2}
 %configure --with-path-empty=%{_sharedstatedir}/empty --with-path-pidfile=%{_rundir}
 %make_build
 

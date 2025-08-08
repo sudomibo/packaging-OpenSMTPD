@@ -1,5 +1,50 @@
 -------------------------------------------------------------------
+Thu Aug  7 10:40:54 UTC 2025 - Mislav Bozicevic <mislav.bozicevic@suse.com>
+
+- Updated the spec file according to feedback:
+  * added the Provides and Conflicts sections
+  * changed the 'sed' expression to appear more traditional
+
+-------------------------------------------------------------------
+Thu Aug  7 09:48:53 UTC 2025 - Mislav Bozicevic <mislav.bozicevic@suse.com>
+
+- Removed the rpmlintrc file. 'permissions-file-setuid-bit' requires
+  review from the security team. Without the rpmlint allowlisting the
+  package build is broken.
+
+-------------------------------------------------------------------
+Thu Aug  7 07:55:52 UTC 2025 - Mislav Bozicevic <mislav.bozicevic@suse.com>
+
+- Updated the spec file according to feedback:
+  * included upstream source URL and uploaded the result of 'download_files'
+    service manual run directly to OBS
+  * switched to pkgconfig for library build dependency resolution
+  * normalized to OpenSSL for all targets due to compilation issues with
+    LibreSSL for Tumbleweed on armv7l
+  * applied 'format_spec_file' service edits
+  * switched to using macros for 'make' 'build' and 'install'
+  * switched to using a macro for lowercase variant of the package name
+    instead of hardcoding it, where applicable
+  * removed 'strip' invocations because it breaks debuginfo packages; it
+    is assumed OBS will strip binaries for release configuration
+  * started depending on 'netcfg' package to provide /etc/aliases
+  * removed '%attr' specification on '%files' where 'make install' does it
+    well by default
+  * removed rc symlink fix for rpmlint 'suse-missing-rclink' warning (no
+    longer needed)
+  * removed permissions.d specification; the package has only one permission
+    configuration set
+
+-------------------------------------------------------------------
+Wed Jul  2 14:55:09 UTC 2025 - Mislav Bozicevic <mislav.bozicevic@suse.com>
+
+- Updated the package to upstream version 7.7.0p0 (2025-05-12) that brings
+  the following significant change:
+  * updated to use imsg APIs
+
+-------------------------------------------------------------------
 Mon Jun 30 15:50:03 UTC 2025 - Mislav Bozicevic <mislav.bozicevic@suse.com>
 
-- Initial build for version 7.6.0p1
+- Initial experimental build for version 7.6.0p1 (2024-10-20) that was not
+  packaged and released beyond the home project.
 

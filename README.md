@@ -1,5 +1,7 @@
 # Packaging OpenSMTPD for openSUSE
 
+[![build result](https://build.opensuse.org/projects/home:mbozicevic/packages/OpenSMTPD/badge.svg?type=percent)](https://build.opensuse.org/package/show/home:mbozicevic/OpenSMTPD)
+
 This repository contains materials related to packaging OpenSMTPD for openSUSE. It is organized mostly as notes for myself, but in case you found any information here helpful, e.g. in your own efforts to package something, feel free to star the repository.
 
 ## First Steps
@@ -53,11 +55,25 @@ Instead of forking the upstream repository, tagging and downloading the tar.gz a
 
 The preferred alternative seems to be to have the `download_files` service in manual mode (activating it locally with `osc service mr download_files`), and commit the upstream source tarball to OBS. That way source remains available even if upstream site is not available.
 
+## Post-release Checklist
+
+1. Were all binaries built with relevant security hardening flags?
+2. Were all binaries properly stripped?
+
 ## FAQ
 
 ### How to add new users and groups?
 
 OpenSMTPD by default uses two unprivileged accounts to increase security. They are defined in [OpenSMTPD-user.conf](https://github.com/sudomibo/packaging-OpenSMTPD/blob/main/OpenSMTPD-user.conf). To avoid the `rpmlint` "non-standard-gid" warning when the package is built, the users and groups are added to `configs/openSUSE/users-groups.toml` file in the `opensuse` branch of https://github.com/rpm-software-management/rpmlint/.
+
+### How to include SUID/SGID binaries in the package?
+
+Create a ticket according to https://en.opensuse.org/openSUSE:Package_security_guidelines#audit_bugs ([example](https://bugzilla.opensuse.org/show_bug.cgi?id=1247781)).
+
+## TODO
+
+* Prepare a default configuration file for openSUSE instead of shipping the one provided from upstream
+* Continue hardening effort on the systemd unit/service
 
 ## Useful Links
 * https://en.opensuse.org/openSUSE:Packaging_guidelines
