@@ -55,6 +55,21 @@ Instead of forking the upstream repository, tagging and downloading the tar.gz a
 
 Regardless, the preferred alternative seems to be to have the `download_files` service in manual mode (activating it locally with `osc service mr download_files`), and commit the upstream source tarball to OBS. That way source remains available even if upstream site is not available.
 
+## Contributing
+
+Contributing to the packaging project follows the following simple process:
+
+```bash
+osc branch server:mail OpenSMTPD
+osc co home:mbozicevic:branches:server:mail/OpenSMTPD # in your case, it will be inside your home directory
+cd home\:mbozicevic\:branches\:server\:mail/OpenSMTPD/
+# make your changes
+osc vc
+osc commit
+osc submitrequest -m 'Contributed this or that'
+osc request show 1301762 # to see the status of the request
+```
+
 ## Post-release Checklist
 
 1. Were all binaries built with relevant security hardening flags?
@@ -72,7 +87,6 @@ Create a ticket according to https://en.opensuse.org/openSUSE:Package_security_g
 
 ## TODO
 
-* Prepare a default configuration file for openSUSE instead of shipping the one provided from upstream
 * Continue hardening effort on the systemd unit/service
 
 ## Useful Links
@@ -87,5 +101,6 @@ Create a ticket according to https://en.opensuse.org/openSUSE:Package_security_g
 * https://news.opensuse.org/2020/11/23/news-in-opensuse-packaging/
 * https://en.opensuse.org/openSUSE:How_to_contribute_to_Factory
 * https://en.opensuse.org/openSUSE:Build_Service_Concept_SourceService
+* https://en.opensuse.org/openSUSE:Build_Service_Collaboration
 * https://rpm.org/docs/4.20.x/manual/macros
 

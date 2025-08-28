@@ -62,6 +62,7 @@ It allows ordinary machines to exchange e-mails with other systems speaking the 
 sed -i "s;@rundir@;%{_rundir};g" %{SOURCE2}
 %configure --with-path-empty=%{_sharedstatedir}/empty --with-path-pidfile=%{_rundir}
 %make_build
+sed -i "s;^listen on localhost;listen on 127.0.0.1\\nlisten on ::1;g" usr.sbin/smtpd/smtpd.conf
 
 %install
 install -D -m 0644 %{SOURCE1} %{buildroot}%{_sysusersdir}/%{name}-user.conf
