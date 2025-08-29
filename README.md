@@ -61,7 +61,7 @@ Contributing to the packaging project follows the following simple process:
 
 ```bash
 osc branch server:mail OpenSMTPD
-osc co home:mbozicevic:branches:server:mail/OpenSMTPD # in your case, it will be inside your home directory
+osc co home:mbozicevic:branches:server:mail/OpenSMTPD
 cd home\:mbozicevic\:branches\:server\:mail/OpenSMTPD/
 # make your changes
 osc vc
