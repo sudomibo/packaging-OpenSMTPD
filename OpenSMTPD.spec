@@ -31,6 +31,7 @@ Source2:        %{name}.service
 BuildRequires:  systemd-rpm-macros
 BuildRequires:  sysuser-tools
 %sysusers_requires
+Requires(pre):  permissions
 BuildRequires:  autoconf
 BuildRequires:  automake
 BuildRequires:  bison
@@ -79,6 +80,12 @@ make check
 
 %post
 %service_add_post %{name}.service
+%set_permissions %{_libexecdir}/%{name_lowercase}/lockspool
+%set_permissions %{_sbindir}/smtpctl
+
+%verifyscript
+%verify_permissions %{_libexecdir}/%{name_lowercase}/lockspool
+%verify_permissions %{_sbindir}/smtpctl
 
 %preun
 %service_del_preun %{name}.service
