@@ -32,6 +32,7 @@ BuildRequires:  systemd-rpm-macros
 BuildRequires:  sysuser-tools
 %sysusers_requires
 Requires(pre):  permissions
+Requires:       filesystem
 BuildRequires:  autoconf
 BuildRequires:  automake
 BuildRequires:  bison
@@ -48,6 +49,7 @@ Conflicts:      msmtp-mta
 Conflicts:      postfix
 Conflicts:      postfix-bdb
 Conflicts:      sendmail
+%define         dir_mail /var/spool/mail
 
 %description
 OpenSMTPD is a FREE implementation of the server-side SMTP protocol as defined by RFC 5321, with some additional standard extensions.
@@ -61,7 +63,7 @@ It allows ordinary machines to exchange e-mails with other systems speaking the 
 %build
 %sysusers_generate_pre %{SOURCE1} %{name} %{name}-user.conf
 sed -i "s;@rundir@;%{_rundir};g" %{SOURCE2}
-%configure --with-path-empty=%{_sharedstatedir}/empty --with-path-pidfile=%{_rundir}
+%configure --with-path-empty=%{_sharedstatedir}/empty --with-path-pidfile=%{_rundir} --with-path-mbox=%{dir_mail}
 %make_build
 sed -i "s;^listen on localhost;listen on 127.0.0.1\\nlisten on ::1;g" usr.sbin/smtpd/smtpd.conf
 
@@ -70,6 +72,7 @@ install -D -m 0644 %{SOURCE1} %{buildroot}%{_sysusersdir}/%{name}-user.conf
 install -D -m 0644 %{SOURCE2} %{buildroot}%{_unitdir}/%{name}.service
 mkdir -p %{buildroot}%{_sysconfdir}/mail
 ln -s %{_sysconfdir}/aliases %{buildroot}%{_sysconfdir}/mail/aliases
+mkdir -p %{buildroot}%{dir_mail}
 %make_install
 
 %check
@@ -82,10 +85,12 @@ make check
 %service_add_post %{name}.service
 %set_permissions %{_libexecdir}/%{name_lowercase}/lockspool
 %set_permissions %{_sbindir}/smtpctl
+%set_permissions %{dir_mail}
 
 %verifyscript
-%verify_permissions %{_libexecdir}/%{name_lowercase}/lockspool
-%verify_permissions %{_sbindir}/smtpctl
+%verify_permissions -e %{_libexecdir}/%{name_lowercase}/lockspool
+%verify_permissions -e %{_sbindir}/smtpctl
+%verify_permissions -e %{dir_mail}
 
 %preun
 %service_del_preun %{name}.service
@@ -110,6 +115,7 @@ make check
 %{_libexecdir}/%{name_lowercase}/mail.mda
 %attr(-,-,_smtpq) %{_sbindir}/smtpctl
 %{_sbindir}/smtpd
+%dir %attr(1777,root,root) %{dir_mail}
 %{_mandir}/man1/lockspool.1*
 %{_mandir}/man1/smtp.1*
 %{_mandir}/man5/aliases.5*

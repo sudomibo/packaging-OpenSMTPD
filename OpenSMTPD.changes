@@ -1,4 +1,27 @@
 -------------------------------------------------------------------
+Thu Sep 11 08:49:36 UTC 2025 - Mislav Bozicevic <mislav.bozicevic@suse.com>
+
+- Updated the spec file according to feedback from boo#1247781:
+  * the package takes ownership of /var/spool/mail like other
+    packages that provide smtp_daemon (see discussion in
+    https://github.com/rpm-software-management/rpmlint/pull/1392)
+  * set_permissions/verify_permissions have been configured. At 
+    this moment (before package allowlisting), this causes rpmlint
+    errors which is by design
+
+-------------------------------------------------------------------
+Fri Aug 29 13:48:12 UTC 2025 - Mislav Bozicevic <mislav.bozicevic@suse.com>
+
+- Further hardened the systemd service configuration.
+
+-------------------------------------------------------------------
+Thu Aug 28 09:22:32 UTC 2025 - Mislav Bozicevic <mislav.bozicevic@suse.com>
+
+- Updated the spec file so that default configuration works out of
+  the box. The workaround is related to the issue as described in
+  https://github.com/OpenSMTPD/OpenSMTPD/issues/853
+
+-------------------------------------------------------------------
 Thu Aug  7 10:40:54 UTC 2025 - Mislav Bozicevic <mislav.bozicevic@suse.com>
 
 - Updated the spec file according to feedback:
