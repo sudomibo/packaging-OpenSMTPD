@@ -70,6 +70,14 @@ osc submitrequest -m 'Contributed this or that'
 osc request show 1301762 # to see the status of the request
 ```
 
+## Submitting to openSUSE:Factory
+
+Simply run:
+```bash
+osc submitrequest server:mail/OpenSMTPD openSUSE:Factory
+```
+The request can be seen via the web UI at https://build.opensuse.org/requests/1311199.
+
 ## Post-release Checklist
 
 1. Were all binaries built with relevant security hardening flags?
