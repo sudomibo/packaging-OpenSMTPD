@@ -103,4 +103,5 @@ Create a ticket according to https://en.opensuse.org/openSUSE:Package_security_g
 * https://en.opensuse.org/openSUSE:Build_Service_Concept_SourceService
 * https://en.opensuse.org/openSUSE:Build_Service_Collaboration
 * https://rpm.org/docs/4.20.x/manual/macros
+* https://en.opensuse.org/openSUSE:Packaging_Patches_guidelines#Patch_naming
 

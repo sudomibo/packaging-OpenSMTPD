@@ -1,4 +1,18 @@
 -------------------------------------------------------------------
+Mon Oct 13 15:45:33 UTC 2025 - Mislav Bozicevic <mislav.bozicevic@suse.com>
+
+- Added patches according to feedback from boo#1247781:
+  * OpenSMTPD-reduced-permissions-on-SMTPD_SOCKET.patch: control socket
+    permissions have been removed for world
+  * OpenSMTPD-simplified-world-writable-spoolers-handling.patch: simplified
+    world-writable spool handling. Changes from upstream have been imported
+    before the next upstream version is released. Once it is released, this
+    patch can be removed
+  * permissions on /var/spool/mail were set to 755 which means server
+    operator is expected to add relevant users to a group and adjust
+    the mentioned directory's ownership and permissions appropriately
+
+-------------------------------------------------------------------
 Thu Sep 11 08:49:36 UTC 2025 - Mislav Bozicevic <mislav.bozicevic@suse.com>
 
 - Updated the spec file according to feedback from boo#1247781:

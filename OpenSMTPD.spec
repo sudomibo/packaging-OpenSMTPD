@@ -28,6 +28,10 @@ Group:          Productivity/Networking/Email/Servers
 Source:         https://github.com/OpenSMTPD/OpenSMTPD/releases/download/%{version}/opensmtpd-%{version}.tar.gz
 Source1:        %{name}-user.conf
 Source2:        %{name}.service
+# PATCH-FIX-OPENSUSE OpenSMTPD-reduced-permissions-on-SMTPD_SOCKET.patch boo#1247781
+Patch1:         OpenSMTPD-reduced-permissions-on-SMTPD_SOCKET.patch
+# PATCH-FIX-UPSTREAM OpenSMTPD-simplified-world-writable-spoolers-handling.patch boo#1247781 and based on 91be977, fc1c10a
+Patch2:         OpenSMTPD-simplified-world-writable-spoolers-handling.patch
 BuildRequires:  systemd-rpm-macros
 BuildRequires:  sysuser-tools
 %sysusers_requires
@@ -59,6 +63,8 @@ It allows ordinary machines to exchange e-mails with other systems speaking the 
 %prep
 %setup -q -n %{name_lowercase}-%{version}
 ./bootstrap
+%patch -P 1 -p1
+%patch -P 2 -p1
 
 %build
 %sysusers_generate_pre %{SOURCE1} %{name} %{name}-user.conf
@@ -72,7 +78,7 @@ install -D -m 0644 %{SOURCE1} %{buildroot}%{_sysusersdir}/%{name}-user.conf
 install -D -m 0644 %{SOURCE2} %{buildroot}%{_unitdir}/%{name}.service
 mkdir -p %{buildroot}%{_sysconfdir}/mail
 ln -s %{_sysconfdir}/aliases %{buildroot}%{_sysconfdir}/mail/aliases
-mkdir -p %{buildroot}%{dir_mail}
+mkdir -m 755 -p %{buildroot}%{dir_mail}
 %make_install
 
 %check
@@ -85,12 +91,10 @@ make check
 %service_add_post %{name}.service
 %set_permissions %{_libexecdir}/%{name_lowercase}/lockspool
 %set_permissions %{_sbindir}/smtpctl
-%set_permissions %{dir_mail}
 
 %verifyscript
 %verify_permissions -e %{_libexecdir}/%{name_lowercase}/lockspool
 %verify_permissions -e %{_sbindir}/smtpctl
-%verify_permissions -e %{dir_mail}
 
 %preun
 %service_del_preun %{name}.service
@@ -107,15 +111,17 @@ make check
 %{_bindir}/smtp
 %dir %{_libexecdir}/%{name_lowercase}
 %{_libexecdir}/%{name_lowercase}/encrypt
-%{_libexecdir}/%{name_lowercase}/lockspool
+%attr(4755,-,-) %{_libexecdir}/%{name_lowercase}/lockspool
 %{_libexecdir}/%{name_lowercase}/mail.lmtp
 %{_libexecdir}/%{name_lowercase}/mail.local
 %{_libexecdir}/%{name_lowercase}/mail.maildir
 %{_libexecdir}/%{name_lowercase}/mail.mboxfile
 %{_libexecdir}/%{name_lowercase}/mail.mda
-%attr(-,-,_smtpq) %{_sbindir}/smtpctl
+%attr(2755,-,_smtpq) %{_sbindir}/smtpctl
 %{_sbindir}/smtpd
-%dir %attr(1777,root,root) %{dir_mail}
+# We leave it to the administrator to create a group for users that need to
+# have access to dir_mail and adjust ownership and privileges accordingly.
+%dir %{dir_mail}
 %{_mandir}/man1/lockspool.1*
 %{_mandir}/man1/smtp.1*
 %{_mandir}/man5/aliases.5*
