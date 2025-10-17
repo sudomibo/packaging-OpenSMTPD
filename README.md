@@ -78,6 +78,10 @@ osc submitrequest server:mail/OpenSMTPD openSUSE:Factory
 ```
 The request can be seen via the web UI at https://build.opensuse.org/requests/1311199.
 
+## Resolving openSUSE:Factory Conflicts
+
+In case packaged files conflict with already existing packages, follow https://en.opensuse.org/openSUSE:Packaging_conflicts.
+
 ## Post-release Checklist
 
 1. Were all binaries built with relevant security hardening flags?

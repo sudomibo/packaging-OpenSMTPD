@@ -80,6 +80,8 @@ mkdir -p %{buildroot}%{_sysconfdir}/mail
 ln -s %{_sysconfdir}/aliases %{buildroot}%{_sysconfdir}/mail/aliases
 mkdir -m 755 -p %{buildroot}%{dir_mail}
 %make_install
+# We rename the following man page to resolve a conflict with an existing Factory package (vacation)
+mv %{buildroot}%{_mandir}/man5/forward.5 %{buildroot}%{_mandir}/man5/forward.5%{name_lowercase}
 
 %check
 make check
@@ -122,24 +124,24 @@ make check
 # We leave it to the administrator to create a group for users that need to
 # have access to dir_mail and adjust ownership and privileges accordingly.
 %dir %{dir_mail}
-%{_mandir}/man1/lockspool.1*
-%{_mandir}/man1/smtp.1*
-%{_mandir}/man5/aliases.5*
-%{_mandir}/man5/forward.5*
-%{_mandir}/man5/smtpd.conf.5*
-%{_mandir}/man5/table.5*
-%{_mandir}/man7/smtpd-filters.7*
-%{_mandir}/man7/smtpd-tables.7*
-%{_mandir}/man8/mail.lmtp.8*
-%{_mandir}/man8/mail.local.8*
-%{_mandir}/man8/mail.maildir.8*
-%{_mandir}/man8/mail.mboxfile.8*
-%{_mandir}/man8/mail.mda.8*
-%{_mandir}/man8/makemap.8*
-%{_mandir}/man8/newaliases.8*
-%{_mandir}/man8/sendmail.8*
-%{_mandir}/man8/smtpctl.8*
-%{_mandir}/man8/smtpd.8*
+%{_mandir}/man1/lockspool.1%{?ext_man}
+%{_mandir}/man1/smtp.1%{?ext_man}
+%{_mandir}/man5/aliases.5%{?ext_man}
+%{_mandir}/man5/forward.5%{name_lowercase}%{?ext_man}
+%{_mandir}/man5/smtpd.conf.5%{?ext_man}
+%{_mandir}/man5/table.5%{?ext_man}
+%{_mandir}/man7/smtpd-filters.7%{?ext_man}
+%{_mandir}/man7/smtpd-tables.7%{?ext_man}
+%{_mandir}/man8/mail.lmtp.8%{?ext_man}
+%{_mandir}/man8/mail.local.8%{?ext_man}
+%{_mandir}/man8/mail.maildir.8%{?ext_man}
+%{_mandir}/man8/mail.mboxfile.8%{?ext_man}
+%{_mandir}/man8/mail.mda.8%{?ext_man}
+%{_mandir}/man8/makemap.8%{?ext_man}
+%{_mandir}/man8/newaliases.8%{?ext_man}
+%{_mandir}/man8/sendmail.8%{?ext_man}
+%{_mandir}/man8/smtpctl.8%{?ext_man}
+%{_mandir}/man8/smtpd.8%{?ext_man}
 %license LICENSE
 
 %changelog
