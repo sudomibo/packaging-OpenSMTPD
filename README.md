@@ -76,7 +76,7 @@ Simply run:
 ```bash
 osc submitrequest server:mail/OpenSMTPD openSUSE:Factory
 ```
-The request can be seen via the web UI at https://build.opensuse.org/requests/1311199.
+The request can be seen via the web UI at https://build.opensuse.org/requests/1311199 (superseded by https://build.opensuse.org/requests/1311981).
 
 ## Resolving openSUSE:Factory Conflicts
 
