@@ -82,6 +82,12 @@ The request can be seen via the web UI at https://build.opensuse.org/requests/13
 
 In case packaged files conflict with already existing packages, follow https://en.opensuse.org/openSUSE:Packaging_conflicts.
 
+## SELinux
+
+Package successfully submitted to Factory, but once installed on Tumbleweed, it cannot run due to AVC denials.
+
+To track the custom policy implementation, a bug is created first (https://bugzilla.opensuse.org/show_bug.cgi?id=1252431) according to instructions from https://en.opensuse.org/openSUSE:Bugreport_SELinux
+
 ## Post-release Checklist
 
 1. Were all binaries built with relevant security hardening flags?
