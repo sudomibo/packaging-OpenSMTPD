@@ -1,5 +1,16 @@
+# we assume there is a group for users that will be sending emails (e.g., 'email'):
+## groupadd email
+# we assume users hrvoje and josip exist on the system; and were added e.g., via
+## useradd hrvoje -c "Hrvoje" -G email -s /bin/false
+## useradd josip -c "Josip" -G email -s /bin/false
 hrvoje@kako.blesav.net hrvoje
 josip@kako.blesav.net josip
 ekipa@kako.blesav.net hrvoje,josip
+# create directories for users:
+## cd /var/spool/mail
+## mkdir hrvoje
+## mkdir josip
+## chown hrvoje:hrvoje hrvoje
+## chown josip:josip josip
 # do not forget to run 'smtpctl update table aliases' etc.
 

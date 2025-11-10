@@ -88,6 +88,8 @@ Package successfully submitted to Factory, but once installed on Tumbleweed, it 
 
 To track the custom policy implementation, a bug is created first (https://bugzilla.opensuse.org/show_bug.cgi?id=1252431) according to instructions from https://en.opensuse.org/openSUSE:Bugreport_SELinux
 
+Fix was to update `policy/modules/contrib/mta.if` by adding `init_nnp_daemon_domain($1)` in the interface `mta_sendmail_mailserver`. This allows us to keep the `NoNewPrivileges` hardening in the systemd service definition.
+
 ## Post-release Checklist
 
 1. Were all binaries built with relevant security hardening flags?
