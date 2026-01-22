@@ -82,6 +82,10 @@ The request can be seen via the web UI at https://build.opensuse.org/requests/13
 
 In case packaged files conflict with already existing packages, follow https://en.opensuse.org/openSUSE:Packaging_conflicts.
 
+## Submitting for openSUSE Leap 16
+
+Create a ticket for the pool repository to be created (https://progress.opensuse.org/issues/195326) at https://progress.opensuse.org/projects/opensuse-admin/issues/new
+
 ## SELinux
 
 Package successfully submitted to Factory, but once installed on Tumbleweed, it cannot run due to AVC denials.
@@ -124,4 +128,5 @@ Create a ticket according to https://en.opensuse.org/openSUSE:Package_security_g
 * https://en.opensuse.org/openSUSE:Build_Service_Collaboration
 * https://rpm.org/docs/4.20.x/manual/macros
 * https://en.opensuse.org/openSUSE:Packaging_Patches_guidelines#Patch_naming
+* https://en.opensuse.org/openSUSE:Packaging_for_Leap#Adding_a_new_package_to_Leap_from_Factory
 
