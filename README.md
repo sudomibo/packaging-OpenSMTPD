@@ -86,6 +86,10 @@ In case packaged files conflict with already existing packages, follow https://e
 
 Create a ticket for the pool repository to be created (https://progress.opensuse.org/issues/195326) at https://progress.opensuse.org/projects/opensuse-admin/issues/new
 
+As a result of the above ticket, a repository is created in pool with the 'leap-16.0' branch (https://src.opensuse.org/pool/OpenSMTPD/src/branch/leap-16.0/).
+
+At the moment, the processes are in flux, so another ticket (https://code.opensuse.org/leap/features/issue/268) is created at https://code.opensuse.org/leap/features/issues
+
 ## SELinux
 
 Package successfully submitted to Factory, but once installed on Tumbleweed, it cannot run due to AVC denials.
