@@ -90,6 +90,8 @@ As a result of the above ticket, a repository is created in pool with the 'leap-
 
 At the moment, the processes are in flux, so another ticket (https://code.opensuse.org/leap/features/issue/268) is created at https://code.opensuse.org/leap/features/issues
 
+The package is added via the following PR: https://src.opensuse.org/products/PackageHub/pulls/439
+
 ## SELinux
 
 Package successfully submitted to Factory, but once installed on Tumbleweed, it cannot run due to AVC denials.
